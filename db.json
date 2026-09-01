@@ -1,0 +1,86 @@
+{
+  "users": [
+    {
+      "name": "Admin",
+      "email": "admin@gmail.com",
+      "password": "admin123",
+      "role": "admin",
+      "status": "active",
+      "profilePicture": "",
+      "id": "admin001"
+    },
+    {
+      "name": "Aswin",
+      "email": "aswinasus233@gmail.com",
+      "password": "123456",
+      "role": "user",
+      "status": "active",
+      "profilePicture": "",
+      "id": "Ipl3ILbv8Hw"
+    },
+    {
+      "name": "Kichu",
+      "email": "kichu@gmail.com",
+      "password": "123456",
+      "role": "user",
+      "status": "active",
+      "profilePicture": "",
+      "id": "n-eYlf9h8JQ"
+    },
+    {
+      "name": "aswin",
+      "email": "a@gmail.com",
+      "password": "12345678",
+      "role": "user",
+      "status": "active",
+      "profilePicture": "",
+      "id": "zE4be7jmQfU"
+    },
+    {
+      "name": "Fouzan",
+      "email": "fouzan@gmail.com",
+      "password": "123123",
+      "role": "user",
+      "status": "active",
+      "profilePicture": "",
+      "id": "fwWZYxBcanw"
+    },
+    {
+      "name": "Aswin Krishna",
+      "email": "krishna@gmail.com",
+      "password": "111111",
+      "role": "user",
+      "status": "active",
+      "profilePicture": "",
+      "id": "ELtMMZQ_MS8"
+    },
+    {
+      "name": "Ramees",
+      "email": "ramees@gmail.com",
+      "password": "123123123",
+      "role": "user",
+      "status": "active",
+      "profilePicture": "",
+      "id": "hO1rKexZThU"
+    },
+    {
+      "name": "Swalilh",
+      "email": "swalih@gmail.com",
+      "password": "123456",
+      "role": "user",
+      "status": "active",
+      "profilePicture": "",
+      "id": "_bogSQ8M-Sw"
+    },
+    {
+      "name": "Shaham",
+      "email": "shaham@gmail.com",
+      "password": "123123123",
+      "role": "user",
+      "status": "inactive",
+      "profilePicture": "",
+      "id": "DEn70AUlhcI"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
