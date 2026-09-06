@@ -16,15 +16,9 @@ const AdminPanel = () => {
 
   // Check admin
   useEffect(() => {
-    const loggedUser = JSON.parse(localStorage.getItem("user"));
-
-    if (!loggedUser || loggedUser.role !== "admin") {
-      navigate("/login");
-      return;
-    }
 
     fetchUsers();
-  }, [navigate]);
+  }, []);
 
   // Get users
   const fetchUsers = async () => {
