@@ -1,24 +1,21 @@
 import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children, role }) => {
   const user = JSON.parse(localStorage.getItem("user"));
-  const location = useLocation();
 
-  // Not logged in
   if (!user) {
     return <Navigate to="/login" replace />;
   }
 
-  // User trying to access admin
-  if (role === "admin" && user.role !== "admin") {
-    alert("Access Denied: Admin access required");
-    return <Navigate to="/users" replace />;
-  }
+  if (user.role !== role) {
+    if (user.role === "admin") {
+      return <Navigate to="/admin" replace />;
+    }
 
-  // Admin trying to access user page
-  if (role === "user" && user.role !== "user") {
-    return <Navigate to="/admin" replace />;
+    if (user.role === "user") {
+      return <Navigate to="/users" replace />;
+    }
   }
 
   return children;
