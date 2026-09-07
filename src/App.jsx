@@ -6,10 +6,13 @@ import UserProfile from "./Pages/UserProfile";
 import Login from "./Pages/auth/Login";
 import AdminPanel from "./Pages/AdminPanel";
 import ProtectedRoute from "./Pages/ProtectedRoute";
+import HomeRedirect from "./Pages/HomeRedirect";
 
 const App = () => {
   return (
     <Routes>
+      <Route path="/" element={<HomeRedirect />} />
+
       <Route path="/signup" element={<SignUp />} />
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Login />} />

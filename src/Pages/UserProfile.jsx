@@ -16,7 +16,8 @@ const UserProfile = () => {
   return (
     <div>
       <nav>
-         <h1>User Profile</h1>
+         {/* <h1>User Profile</h1> */}
+         <img className="navLogo" src="src\assets\namelogo.png"/>
         <button className="signOut-btn"
           onClick={handleSignout}>
           📤

@@ -1,18 +1,91 @@
 /* =========================
+   DESIGN TOKENS
+========================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;650&display=swap");
+
+:root {
+  /* Brand */
+  --accent: #8e08db;
+  --accent-hover: #7607b5;
+  --accent-tint: #f3eafa;
+  --accent-tint-strong: #ecd9f8;
+
+  /* Ink / dark banner */
+  --ink: #1c1530;
+  --ink-soft: #2c2148;
+  --ink-text: #f1ecfa;
+  --ink-text-dim: #b8a9d9;
+
+  /* Neutrals */
+  --bg: #f1eff6;
+  --surface: #ffffff;
+  --surface-muted: #f8f6fb;
+  --border: #e6e1ef;
+  --border-strong: #d6cfe4;
+
+  --text-primary: #1e1a29;
+  --text-secondary: #6f6580;
+  --text-tertiary: #9a90ab;
+
+  /* Status */
+  --success: #157a45;
+  --success-tint: #e3f6ea;
+  --danger: #c62839;
+  --danger-tint: #fbe7e9;
+  --warning: #a8620a;
+  --warning-tint: #fdf0dc;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(28, 21, 48, 0.05);
+  --shadow-md: 0 8px 24px rgba(28, 21, 48, 0.08);
+  --shadow-lg: 0 20px 48px rgba(28, 21, 48, 0.22);
+
+  /* Two-tier radius: generous on surfaces, tight on controls */
+  --radius-surface: 18px;
+  --radius-control: 6px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+
+/* =========================
    ADMIN PAGE
 ========================= */
 
 .admin-page {
   min-height: 100vh;
-  background: #f6f6f8;
-  color: #222;
-  padding: 30px 40px;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  padding: 0 var(--space-6) var(--space-6);
   box-sizing: border-box;
 }
 
 
 /* =========================
-   NAVBAR
+   NAVBAR — dark banner, bleeds edge to edge
 ========================= */
 
 .admin-nav {
@@ -20,48 +93,52 @@
   justify-content: space-between;
   align-items: center;
 
-  padding: 18px 0;
-  margin-bottom: 30px;
+  margin: 0 calc(-1 * var(--space-6)) var(--space-6);
+  padding: 28px var(--space-6);
 
-  border-bottom: 1px solid #ddd;
+  background: linear-gradient(135deg, var(--ink) 0%, var(--ink-soft) 100%);
+  border-bottom: 3px solid var(--accent);
 }
 
 .admin-nav h1 {
   margin: 0;
-  font-size: 26px;
-  font-weight: 700;
-  color: #222;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink-text);
 }
 
 .admin-nav p {
   margin: 5px 0 0;
   font-size: 14px;
-  color: #777;
+  color: var(--ink-text-dim);
 }
 
 
 /* LOGOUT */
 
 .admin-logout {
-  padding: 9px 18px;
+  padding: 10px 20px;
 
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  border: 1px solid rgba(241, 236, 250, 0.25);
+  border-radius: var(--radius-control);
 
-  background: white;
-  color: #444;
+  background: transparent;
+  color: var(--ink-text);
 
   font-size: 14px;
   font-weight: 600;
+  font-family: inherit;
 
   cursor: pointer;
 
-  transition: 0.2s ease;
+  transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
 }
 
 .admin-logout:hover {
-  background: #8e08db;
-  border-color: #8e08db;
+  background: var(--accent);
+  border-color: var(--accent);
   color: white;
 }
 
@@ -73,66 +150,90 @@
 .stats-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  gap: var(--space-4);
 
-  margin-bottom: 30px;
+  margin-bottom: var(--space-6);
 }
 
 .stat-card {
-  background: white;
+  background: var(--surface);
 
-  border: 1px solid #e2e2e2;
-  border-radius: 8px;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-surface);
 
-  padding: 20px;
+  padding: 22px 24px;
 
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: var(--space-4);
+
+  transition: transform 0.15s var(--ease), box-shadow 0.15s var(--ease);
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .stat-card > span {
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background: #f1e5f8;
-  border-radius: 6px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  color: var(--accent);
 
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .stat-card h3 {
-  margin: 0 0 5px;
+  margin: 0 0 4px;
 
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 
-  color: #777;
+  color: var(--text-tertiary);
 }
 
 .stat-card strong {
-  font-size: 24px;
-  color: #222;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.active-card {
+  border-left-color: var(--success);
 }
 
 .active-card > span {
-  background: #e7f7ed;
+  border-color: var(--success);
+  color: var(--success);
 }
 
 .active-card strong {
-  color: #16803c;
+  color: var(--success);
+}
+
+.inactive-card {
+  border-left-color: var(--danger);
 }
 
 .inactive-card > span {
-  background: #fdeaea;
+  border-color: var(--danger);
+  color: var(--danger);
 }
 
 .inactive-card strong {
-  color: #c62828;
+  color: var(--danger);
 }
 
 
@@ -141,10 +242,11 @@
 ========================= */
 
 .users-section {
-  background: white;
+  background: var(--surface);
 
-  border: 1px solid #e2e2e2;
-  border-radius: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-surface);
+  box-shadow: var(--shadow-sm);
 
   overflow: hidden;
 }
@@ -156,24 +258,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--space-4);
 
-  padding: 22px 25px;
+  padding: 24px 28px;
 
-  border-bottom: 1px solid #e5e5e5;
+  background: var(--surface-muted);
+  border-bottom: 1px solid var(--border);
 }
 
 .users-header h2 {
   margin: 0;
 
+  font-family: var(--font-display);
   font-size: 20px;
   font-weight: 600;
 }
 
 .users-header p {
-  margin: 5px 0 0;
+  margin: 4px 0 0;
 
   font-size: 13px;
-  color: #888;
+  color: var(--text-tertiary);
 }
 
 
@@ -182,21 +287,29 @@
 .users-header input {
   width: 240px;
 
-  padding: 10px 12px;
+  padding: 10px 16px;
 
-  border: 1px solid #d5d5d5;
-  border-radius: 6px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
 
-  background: #fafafa;
+  background: var(--surface);
+  color: var(--text-primary);
 
   outline: none;
 
   font-size: 14px;
+  font-family: inherit;
+
+  transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
+}
+
+.users-header input::placeholder {
+  color: var(--text-tertiary);
 }
 
 .users-header input:focus {
-  border-color: #8e08db;
-  background: white;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-tint);
 }
 
 
@@ -215,38 +328,45 @@ table {
 }
 
 thead {
-  background: #fafafa;
+  background: var(--surface);
 }
 
 th {
-  padding: 13px 20px;
+  padding: 14px 28px;
 
   text-align: left;
 
-  font-size: 12px;
+  font-family: var(--font-display);
+  font-size: 12.5px;
   font-weight: 600;
+  font-style: italic;
 
-  color: #777;
+  color: var(--text-tertiary);
 
-  text-transform: uppercase;
-
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid var(--border-strong);
 }
 
 td {
-  padding: 15px 20px;
+  padding: 16px 28px;
 
   font-size: 14px;
+  color: var(--text-primary);
 
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border);
 }
 
 tbody tr:last-child td {
   border-bottom: none;
 }
 
+tbody tr {
+  box-shadow: inset 3px 0 0 transparent;
+  transition: box-shadow 0.15s var(--ease), background 0.15s var(--ease);
+}
+
 tbody tr:hover {
-  background: #faf8fc;
+  background: var(--accent-tint);
+  box-shadow: inset 3px 0 0 var(--accent);
 }
 
 
@@ -257,28 +377,35 @@ tbody tr:hover {
 .user-name {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: var(--space-3);
 }
 
 .avatar {
   width: 36px;
   height: 36px;
+  flex-shrink: 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   border-radius: 50%;
+  background: var(--ink);
+  color: var(--ink-text);
 
-  background: #eee;
-  color: #555;
-
+  font-family: var(--font-display);
   font-size: 14px;
   font-weight: 600;
 }
 
 .user-name strong {
   font-weight: 500;
+}
+
+.user-name span {
+  display: block;
+  font-size: 12px;
+  color: var(--text-tertiary);
 }
 
 
@@ -289,14 +416,16 @@ tbody tr:hover {
 .role {
   display: inline-block;
 
-  padding: 4px 9px;
+  padding: 3px 11px;
 
-  background: #f3eafa;
-  color: #7522a5;
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent-hover);
 
-  border-radius: 4px;
+  border-radius: 999px;
 
   font-size: 12px;
+  font-weight: 600;
 }
 
 
@@ -323,19 +452,19 @@ tbody tr:hover {
 }
 
 .status.active {
-  color: #16803c;
+  color: var(--success);
 }
 
 .status.active::before {
-  background: #16803c;
+  background: var(--success);
 }
 
 .status.inactive {
-  color: #c62828;
+  color: var(--danger);
 }
 
 .status.inactive::before {
-  background: #c62828;
+  background: var(--danger);
 }
 
 
@@ -356,31 +485,31 @@ tbody tr:hover {
   align-items: center;
   justify-content: center;
 
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-control);
 
-  background: white;
+  background: var(--surface);
 
   cursor: pointer;
 
   font-size: 14px;
 
-  transition: 0.15s ease;
+  transition: border-color 0.15s var(--ease), background 0.15s var(--ease);
 }
 
 .edit-btn:hover {
-  border-color: #8e08db;
-  background: #f7effb;
+  border-color: var(--accent);
+  background: var(--accent-tint);
 }
 
 .status-btn:hover {
-  border-color: #e09b27;
-  background: #fff8e8;
+  border-color: var(--warning);
+  background: var(--warning-tint);
 }
 
 .delete-btn:hover {
-  border-color: #d33;
-  background: #fff0f0;
+  border-color: var(--danger);
+  background: var(--danger-tint);
 }
 
 
@@ -393,32 +522,62 @@ tbody tr:hover {
 
   inset: 0;
 
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(28, 21, 48, 0.55);
+  backdrop-filter: blur(3px);
 
   display: flex;
   align-items: center;
   justify-content: center;
 
+  padding: var(--space-4);
+  box-sizing: border-box;
+
   z-index: 1000;
+
+  animation: overlay-in 0.15s var(--ease);
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .edit-modal {
   width: 380px;
+  max-width: 100%;
 
-  background: white;
+  background: var(--surface);
 
-  padding: 25px;
+  padding: 28px;
 
-  border-radius: 8px;
-
-  border: 1px solid #ddd;
+  border-top: 4px solid var(--accent);
+  border-radius: var(--radius-surface);
+  box-shadow: var(--shadow-lg);
 
   box-sizing: border-box;
+
+  animation: modal-in 0.18s var(--ease);
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .edit-modal h2 {
   margin: 0 0 20px;
 
+  font-family: var(--font-display);
   font-size: 20px;
   font-weight: 600;
 }
@@ -426,12 +585,16 @@ tbody tr:hover {
 .edit-modal label {
   display: block;
 
-  margin: 15px 0 7px;
+  margin: 16px 0 6px;
 
   font-size: 13px;
   font-weight: 600;
 
-  color: #555;
+  color: var(--text-secondary);
+}
+
+.edit-modal label:first-of-type {
+  margin-top: 0;
 }
 
 .edit-modal input {
@@ -441,16 +604,19 @@ tbody tr:hover {
 
   padding: 10px 12px;
 
-  border: 1px solid #d5d5d5;
-  border-radius: 5px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-control);
 
   outline: none;
 
   font-size: 14px;
+  font-family: inherit;
+
+  transition: border-color 0.15s var(--ease);
 }
 
 .edit-modal input:focus {
-  border-color: #8e08db;
+  border-color: var(--accent);
 }
 
 
@@ -464,38 +630,42 @@ tbody tr:hover {
 
   gap: 8px;
 
-  margin-top: 25px;
+  margin-top: 26px;
 }
 
 .modal-buttons button {
-  padding: 9px 15px;
+  padding: 9px 16px;
 
-  border-radius: 5px;
+  border-radius: var(--radius-control);
 
   font-size: 13px;
   font-weight: 600;
+  font-family: inherit;
 
   cursor: pointer;
+
+  transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
 }
 
 .cancel-btn {
-  border: 1px solid #ddd;
-  background: white;
-  color: #555;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-primary);
 }
 
 .cancel-btn:hover {
-  background: #f5f5f5;
+  background: var(--surface-muted);
 }
 
 .save-btn {
-  border: 1px solid #8e08db;
-  background: #8e08db;
+  border: 1px solid var(--accent);
+  background: var(--accent);
   color: white;
 }
 
 .save-btn:hover {
-  background: #7607b5;
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
 }
 
 
@@ -506,7 +676,12 @@ tbody tr:hover {
 @media (max-width: 800px) {
 
   .admin-page {
-    padding: 20px;
+    padding: 0 20px 20px;
+  }
+
+  .admin-nav {
+    margin: 0 -20px var(--space-6);
+    padding: 24px 20px;
   }
 
   .stats-container {
@@ -516,7 +691,7 @@ tbody tr:hover {
   .users-header {
     align-items: flex-start;
     flex-direction: column;
-    gap: 15px;
+    gap: 14px;
   }
 
   .users-header input {
@@ -525,7 +700,7 @@ tbody tr:hover {
   }
 
   .admin-nav h1 {
-    font-size: 22px;
+    font-size: 20px;
   }
 }
 
@@ -533,11 +708,13 @@ tbody tr:hover {
 @media (max-width: 500px) {
 
   .admin-page {
-    padding: 15px;
+    padding: 0 15px 15px;
   }
 
   .admin-nav {
     align-items: flex-start;
+    margin: 0 -15px var(--space-5);
+    padding: 20px 15px;
   }
 
   .admin-logout {
@@ -545,10 +722,10 @@ tbody tr:hover {
   }
 
   .users-section {
-    border-radius: 6px;
+    border-radius: var(--radius-control);
   }
 
   .edit-modal {
-    width: calc(100% - 30px);
+    width: 100%;
   }
 }
