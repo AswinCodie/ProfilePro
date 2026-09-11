@@ -10,13 +10,16 @@ const AdminPanel = () => {
   const [search, setSearch] = useState("");
 
   const [editingUser, setEditingUser] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 5;
+
+  const [selectedUser,setSelectedUser]=useState(null)
 
   const [editName, setEditName] = useState("");
   const [editEmail, setEditEmail] = useState("");
 
   // Check admin
   useEffect(() => {
-
     fetchUsers();
   }, []);
 
@@ -33,7 +36,7 @@ const AdminPanel = () => {
   // Delete user
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this user?"
+      "Are you sure you want to delete this user?",
     );
 
     if (!confirmDelete) return;
@@ -41,9 +44,7 @@ const AdminPanel = () => {
     try {
       await API.delete(`/users/${id}`);
 
-      setUsers((prevUsers) =>
-        prevUsers.filter((user) => user.id !== id)
-      );
+      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
     } catch (error) {
       console.log(error);
       alert("Failed to delete user");
@@ -52,8 +53,7 @@ const AdminPanel = () => {
 
   // Change status
   const handleStatus = async (user) => {
-    const newStatus =
-      user.status === "active" ? "inactive" : "active";
+    const newStatus = user.status === "active" ? "inactive" : "active";
 
     try {
       const res = await API.patch(`/users/${user.id}`, {
@@ -61,9 +61,7 @@ const AdminPanel = () => {
       });
 
       setUsers((prevUsers) =>
-        prevUsers.map((item) =>
-          item.id === user.id ? res.data : item
-        )
+        prevUsers.map((item) => (item.id === user.id ? res.data : item)),
       );
     } catch (error) {
       console.log(error);
@@ -94,9 +92,7 @@ const AdminPanel = () => {
       });
 
       setUsers((prevUsers) =>
-        prevUsers.map((user) =>
-          user.id === editingUser.id ? res.data : user
-        )
+        prevUsers.map((user) => (user.id === editingUser.id ? res.data : user)),
       );
 
       setEditingUser(null);
@@ -113,48 +109,51 @@ const AdminPanel = () => {
   };
 
   // Search
-  const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(search.toLowerCase()) ||
-    user.email.toLowerCase().includes(search.toLowerCase())
+  const filteredUsers = users
+    .filter((user) => user.role !== "admin")
+    .filter(
+      (user) =>
+        user.name.toLowerCase().includes(search.toLowerCase()) ||
+        user.email.toLowerCase().includes(search.toLowerCase()),
+    );
+
+  // Pagination
+  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+
+  const startIndex = (currentPage - 1) * usersPerPage;
+
+  const currentUsers = filteredUsers.slice(
+    startIndex,
+    startIndex + usersPerPage,
   );
 
   // Statistics
-  const totalUsers = users.filter(
-    (user) => user.role === "user"
-  ).length;
+  const totalUsers = users.filter((user) => user.role === "user").length;
 
   const activeUsers = users.filter(
-    (user) => user.role === "user" && user.status === "active"
+    (user) => user.role === "user" && user.status === "active",
   ).length;
 
   const inactiveUsers = users.filter(
-    (user) => user.role === "user" && user.status === "inactive"
+    (user) => user.role === "user" && user.status === "inactive",
   ).length;
 
   return (
     <div className="admin-page">
-
       {/* Navbar */}
       <nav className="admin-nav">
-
         <div>
           <h1>Admin Panel</h1>
           <p>Manage your users</p>
         </div>
 
-        <button
-          className="admin-logout"
-          onClick={handleLogout}
-        >
+        <button className="admin-logout" onClick={handleLogout}>
           Logout
         </button>
-
       </nav>
-
 
       {/* Dashboard cards */}
       <div className="stats-container">
-
         <div className="stat-card">
           <span>👥</span>
           <div>
@@ -178,15 +177,11 @@ const AdminPanel = () => {
             <strong>{inactiveUsers}</strong>
           </div>
         </div>
-
       </div>
-
 
       {/* Users section */}
       <div className="users-section">
-
         <div className="users-header">
-
           <div>
             <h2>Users</h2>
             <p>Manage registered users</p>
@@ -198,15 +193,11 @@ const AdminPanel = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-
         </div>
-
 
         {/* Table */}
         <div className="table-container">
-
           <table>
-
             <thead>
               <tr>
                 <th>User</th>
@@ -218,17 +209,21 @@ const AdminPanel = () => {
             </thead>
 
             <tbody>
-
-              {filteredUsers
-                .filter((user) => user.role !== "admin")
-                .map((user) => (
-
+              {currentUsers.map((user) => (
                 <tr key={user.id}>
-
                   <td>
-                    <div className="user-name">
+                    <div
+                      className="user-name clickable-user"
+                      onClick={() => setSelectedUser(user)}
+                    >
                       <div className="avatar">
-                        {user.name?.charAt(0).toUpperCase()}
+                        <img
+                          src={
+                            user.profilePicture ||
+                            "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"
+                          }
+                          alt={user.name}
+                        />
                       </div>
 
                       <strong>{user.name}</strong>
@@ -238,9 +233,7 @@ const AdminPanel = () => {
                   <td>{user.email}</td>
 
                   <td>
-                    <span className="role">
-                      {user.role}
-                    </span>
+                    <span className="role">{user.role}</span>
                   </td>
 
                   <td>
@@ -256,9 +249,7 @@ const AdminPanel = () => {
                   </td>
 
                   <td>
-
                     <div className="actions">
-
                       <button
                         className="edit-btn"
                         onClick={() => handleEdit(user)}
@@ -270,9 +261,7 @@ const AdminPanel = () => {
                         className="status-btn"
                         onClick={() => handleStatus(user)}
                       >
-                        {user.status === "active"
-                          ? "🔴"
-                          : "🟢"}
+                        {user.status === "active" ? "🔴" : "🟢"}
                       </button>
 
                       <button
@@ -281,35 +270,47 @@ const AdminPanel = () => {
                       >
                         🗑️
                       </button>
-
                     </div>
-
                   </td>
-
                 </tr>
-
               ))}
-
             </tbody>
-
           </table>
+          <div className="pagination">
+            <button
+              onClick={() => setCurrentPage(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              ← Previous
+            </button>
 
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index}
+                className={currentPage === index + 1 ? "active-page" : ""}
+                onClick={() => setCurrentPage(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
+
+            <button
+              onClick={() => setCurrentPage(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next →
+            </button>
+          </div>
         </div>
-
       </div>
-
 
       {/* Edit Modal */}
       {editingUser && (
-
         <div className="modal-overlay">
-
           <div className="edit-modal">
-
             <h2>Edit User</h2>
 
             <form onSubmit={handleUpdate}>
-
               <label>Name</label>
 
               <input
@@ -327,7 +328,6 @@ const AdminPanel = () => {
               />
 
               <div className="modal-buttons">
-
                 <button
                   type="button"
                   className="cancel-btn"
@@ -336,23 +336,87 @@ const AdminPanel = () => {
                   Cancel
                 </button>
 
-                <button
-                  type="submit"
-                  className="save-btn"
-                >
+                <button type="submit" className="save-btn">
                   Save Changes
                 </button>
-
               </div>
-
             </form>
-
           </div>
-
         </div>
-
       )}
 
+      {selectedUser && (
+        <div className="modal-overlay" onClick={() => setSelectedUser(null)}>
+          <div
+            className="user-details-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="close-modal"
+              onClick={() => setSelectedUser(null)}
+            >
+              ✕
+            </button>
+
+            <div className="profile-details">
+              <img
+                src={
+                  selectedUser.profilePicture ||
+                  "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"
+                }
+                alt={selectedUser.name}
+                className="details-profile-pic"
+              />
+
+              <h2>{selectedUser.name}</h2>
+
+              <span className="role">{selectedUser.role}</span>
+            </div>
+
+            <div className="user-details">
+              <div className="detail-item">
+                <span>Name</span>
+                <strong>{selectedUser.name}</strong>
+              </div>
+
+              <div className="detail-item">
+                <span>Email</span>
+                <strong>{selectedUser.email}</strong>
+              </div>
+
+              <div className="detail-item">
+                <span>Role</span>
+                <strong>{selectedUser.role}</strong>
+              </div>
+
+              <div className="detail-item">
+                <span>Status</span>
+                <strong
+                  className={
+                    selectedUser.status === "active"
+                      ? "details-active"
+                      : "details-inactive"
+                  }
+                >
+                  {selectedUser.status}
+                </strong>
+              </div>
+
+              <div className="detail-item">
+                <span>User ID</span>
+                <strong>{selectedUser.id}</strong>
+              </div>
+            </div>
+
+            <button
+              className="close-details-btn"
+              onClick={() => setSelectedUser(null)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
