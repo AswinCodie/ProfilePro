@@ -8,6 +8,10 @@ const ForgetPass = () => {
   const [newPass, setNewPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
 
+  // Password visibility
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const navigate = useNavigate();
 
   const handleResetPassword = async (e) => {
@@ -42,7 +46,6 @@ const ForgetPass = () => {
       alert("Password changed successfully");
 
       navigate("/login");
-
     } catch (error) {
       console.log("Reset password error:", error);
       alert("Something went wrong");
@@ -64,6 +67,7 @@ const ForgetPass = () => {
           onSubmit={handleResetPassword}
         >
 
+          {/* Email */}
           <input
             type="email"
             placeholder="Enter your email"
@@ -71,22 +75,47 @@ const ForgetPass = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <input
-            type="password"
-            placeholder="Enter new password"
-            minLength={6}
-            value={newPass}
-            onChange={(e) => setNewPass(e.target.value)}
-          />
+          {/* New Password */}
+          <div className="password-container">
+            <input
+              type={showNewPassword ? "text" : "password"}
+              placeholder="Enter new password"
+              minLength={6}
+              value={newPass}
+              onChange={(e) => setNewPass(e.target.value)}
+            />
 
-          <input
-            type="password"
-            placeholder="Confirm new password"
-            minLength={6}
-            value={confirmPass}
-            onChange={(e) => setConfirmPass(e.target.value)}
-          />
+            <button
+              type="button"
+              className="show-password"
+              onClick={() => setShowNewPassword(!showNewPassword)}
+            >
+              {showNewPassword ? "🙈" : "👁️"}
+            </button>
+          </div>
 
+          {/* Confirm Password */}
+          <div className="password-container">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="Confirm new password"
+              minLength={6}
+              value={confirmPass}
+              onChange={(e) => setConfirmPass(e.target.value)}
+            />
+
+            <button
+              type="button"
+              className="show-password"
+              onClick={() =>
+                setShowConfirmPassword(!showConfirmPassword)
+              }
+            >
+              {showConfirmPassword ? "🙈" : "👁️"}
+            </button>
+          </div>
+
+          {/* Submit */}
           <button type="submit">
             Reset Password
           </button>

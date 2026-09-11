@@ -6,6 +6,7 @@ import "./signup.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -28,10 +29,10 @@ const Login = () => {
         alert("Invalid email or password");
         return;
       }
-if (user.status === "inactive") {
-  alert("Your account has been deactivated by the admin.");
-  return;
-}
+      if (user.status === "inactive") {
+        alert("Your account has been deactivated by the admin.");
+        return;
+      }
       console.log("Login successful:", user);
 
       localStorage.setItem("user", JSON.stringify(user));
@@ -64,17 +65,27 @@ if (user.status === "inactive") {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <input
-            type="password"
-            placeholder="Enter Password"
-            minLength={6}
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
-          />
+          <div className="password-container">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter Password"
+              minLength={6}
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
+            />
+
+            <button
+              type="button"
+              className="show-password"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "🙈" : "👁️"}
+            </button>
+          </div>
 
           <button type="submit">Login</button>
           <Link to="/signup">Don't have an account? Sign up</Link>
-          <Link to='/forget-pass'>Forgot Password?</Link>
+          <Link to="/forget-pass">Forgot Password?</Link>
         </form>
       </div>
     </div>

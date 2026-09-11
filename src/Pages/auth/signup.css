@@ -125,6 +125,48 @@
 .Auth-form a:hover {
   color: #5b21b6;
   text-decoration: underline;
+
+
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 45px;
+  box-sizing: border-box;
+}
+
+.show-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+
+  padding: 5px !important;
+
+  border: none !important;
+  border-radius: 0 !important;
+
+  background: transparent !important;
+  color: #7e22ce;
+
+  box-shadow: none !important;
+
+  font-size: 18px;
+  cursor: pointer;
+}
+.show-password:hover {
+  transform: translateY(-50%) !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 /* =========================

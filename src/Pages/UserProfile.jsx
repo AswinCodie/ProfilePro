@@ -50,11 +50,12 @@ const UserProfile = () => {
   return (
     <div>
       <nav>
-        <img
+        {/* <img
           className="navLogo"
           src="/src/assets/namelogo.png"
           alt="Logo"
-        />
+        /> */}
+        <h1>ProfileDesk!</h1>
 
         <button
           className="signOut-btn"
