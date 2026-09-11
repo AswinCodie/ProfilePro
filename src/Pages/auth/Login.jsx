@@ -74,6 +74,7 @@ if (user.status === "inactive") {
 
           <button type="submit">Login</button>
           <Link to="/signup">Don't have an account? Sign up</Link>
+          <Link to='/forget-pass'>Forgot Password?</Link>
         </form>
       </div>
     </div>

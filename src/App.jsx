@@ -7,6 +7,7 @@ import Login from "./Pages/auth/Login";
 import AdminPanel from "./Pages/AdminPanel";
 import ProtectedRoute from "./Pages/ProtectedRoute";
 import HomeRedirect from "./Pages/HomeRedirect";
+import ForgotPass from "./Pages/auth/ForgotPass";
 
 const App = () => {
   return (
@@ -15,7 +16,7 @@ const App = () => {
 
       <Route path="/signup" element={<SignUp />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/" element={<Login />} />
+      <Route path="/forget-pass" element={<ForgotPass/>}/>
 
       {/* Only users can access /users */}
       <Route

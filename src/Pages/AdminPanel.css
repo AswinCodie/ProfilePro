@@ -53,7 +53,8 @@
   --space-6: 32px;
 
   --font-display: "Fraunces", Georgia, serif;
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -69,7 +70,6 @@
   outline-offset: 2px;
 }
 
-
 /* =========================
    ADMIN PAGE
 ========================= */
@@ -82,7 +82,6 @@
   padding: 0 var(--space-6) var(--space-6);
   box-sizing: border-box;
 }
-
 
 /* =========================
    NAVBAR — dark banner, bleeds edge to edge
@@ -115,7 +114,6 @@
   color: var(--ink-text-dim);
 }
 
-
 /* LOGOUT */
 
 .admin-logout {
@@ -133,7 +131,9 @@
 
   cursor: pointer;
 
-  transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
+  transition:
+    background 0.15s var(--ease),
+    border-color 0.15s var(--ease);
 }
 
 .admin-logout:hover {
@@ -141,7 +141,6 @@
   border-color: var(--accent);
   color: white;
 }
-
 
 /* =========================
    STATISTICS
@@ -168,7 +167,9 @@
   align-items: center;
   gap: var(--space-4);
 
-  transition: transform 0.15s var(--ease), box-shadow 0.15s var(--ease);
+  transition:
+    transform 0.15s var(--ease),
+    box-shadow 0.15s var(--ease);
 }
 
 .stat-card:hover {
@@ -236,7 +237,6 @@
   color: var(--danger);
 }
 
-
 /* =========================
    USERS SECTION
 ========================= */
@@ -250,7 +250,6 @@
 
   overflow: hidden;
 }
-
 
 /* HEADER */
 
@@ -281,7 +280,6 @@
   color: var(--text-tertiary);
 }
 
-
 /* SEARCH */
 
 .users-header input {
@@ -300,7 +298,9 @@
   font-size: 14px;
   font-family: inherit;
 
-  transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
+  transition:
+    border-color 0.15s var(--ease),
+    box-shadow 0.15s var(--ease);
 }
 
 .users-header input::placeholder {
@@ -311,7 +311,6 @@
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-tint);
 }
-
 
 /* =========================
    TABLE
@@ -361,14 +360,15 @@ tbody tr:last-child td {
 
 tbody tr {
   box-shadow: inset 3px 0 0 transparent;
-  transition: box-shadow 0.15s var(--ease), background 0.15s var(--ease);
+  transition:
+    box-shadow 0.15s var(--ease),
+    background 0.15s var(--ease);
 }
 
 tbody tr:hover {
   background: var(--accent-tint);
   box-shadow: inset 3px 0 0 var(--accent);
 }
-
 
 /* =========================
    USER
@@ -408,7 +408,6 @@ tbody tr:hover {
   color: var(--text-tertiary);
 }
 
-
 /* =========================
    ROLE
 ========================= */
@@ -427,7 +426,6 @@ tbody tr:hover {
   font-size: 12px;
   font-weight: 600;
 }
-
 
 /* =========================
    STATUS
@@ -467,7 +465,6 @@ tbody tr:hover {
   background: var(--danger);
 }
 
-
 /* =========================
    ACTION BUTTONS
 ========================= */
@@ -494,7 +491,9 @@ tbody tr:hover {
 
   font-size: 14px;
 
-  transition: border-color 0.15s var(--ease), background 0.15s var(--ease);
+  transition:
+    border-color 0.15s var(--ease),
+    background 0.15s var(--ease);
 }
 
 .edit-btn:hover {
@@ -511,7 +510,6 @@ tbody tr:hover {
   border-color: var(--danger);
   background: var(--danger-tint);
 }
-
 
 /* =========================
    EDIT MODAL
@@ -619,7 +617,6 @@ tbody tr:hover {
   border-color: var(--accent);
 }
 
-
 /* =========================
    MODAL BUTTONS
 ========================= */
@@ -644,7 +641,9 @@ tbody tr:hover {
 
   cursor: pointer;
 
-  transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
+  transition:
+    background 0.15s var(--ease),
+    border-color 0.15s var(--ease);
 }
 
 .cancel-btn {
@@ -668,13 +667,11 @@ tbody tr:hover {
   border-color: var(--accent-hover);
 }
 
-
 /* =========================
    RESPONSIVE
 ========================= */
 
 @media (max-width: 800px) {
-
   .admin-page {
     padding: 0 20px 20px;
   }
@@ -704,9 +701,7 @@ tbody tr:hover {
   }
 }
 
-
 @media (max-width: 500px) {
-
   .admin-page {
     padding: 0 15px 15px;
   }

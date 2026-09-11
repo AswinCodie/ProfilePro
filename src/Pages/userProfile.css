@@ -213,3 +213,31 @@ h2 {
     height: 110px;
   }
 }
+
+.dp-img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.dp-img img {
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid white;
+}
+
+.change-dp {
+  background: #8e08db;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.change-dp:hover {
+  background: #7200b8;
+}
